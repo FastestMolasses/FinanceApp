@@ -26,7 +26,7 @@ export default class MainPage extends React.Component {
     };
 
     calculateMortgage = () => {
-        rate = this.rateInput.getText();
+        rate = this.rateInput.getText() / 100;
         pv = this.pvInput.getText();
         years = this.yearInput.getText();
 
@@ -34,6 +34,10 @@ export default class MainPage extends React.Component {
         // Also calculate the mortgage
         if (rate && pv && years)
         {
+            // Calculate the mortgage
+            mortgage = rate * pv;
+            mortgage = mortgage / (1.0 - (1/Math.pow(1 + rate, years * 12)));
+
             // Build the text to display
             text =
                 'At a rate of ' +
